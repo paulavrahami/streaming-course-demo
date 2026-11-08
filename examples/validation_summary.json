@@ -1,0 +1,18 @@
+{
+  "python": "3.13.12",
+  "mode": "IPython in-process",
+  "code_cells": 20,
+  "errors": 0,
+  "checks": 44,
+  "elapsed_s": 6.035,
+  "date": "2026-11-08",
+  "unit_tests_passed": 64,
+  "core_tests": 43,
+  "kafka_contract_tests": 21,
+  "real_kafka_checks_passed": 9,
+  "real_kafka_version": "4.4.0",
+  "separate_jupyter_kernel": "not executed: libzmq interface enumeration denied",
+  "windows_native": "not executed",
+  "redpanda_compose": "not executed",
+  "github_actions": "not executed"
+}

@@ -1,0 +1,4 @@
+﻿grace_seconds,accepted_orders,accepted_revenue,accepted_cents,late_orders,late_cents,duplicate_deliveries
+0,279,"₪56,916.90",5691690,21,432480,17
+10,286,"₪57,954.30",5795430,14,328740,17
+120,300,"₪61,241.70",6124170,0,0,17

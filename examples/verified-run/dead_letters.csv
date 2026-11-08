@@ -1,0 +1,2 @@
+﻿source_offset,reason,payload
+11,amount_cents must be an integer >= 0,"{""amount_cents"": 19.9, ""event_id"": ""bad-money"", ""event_time"": ""2026-11-01T10:02:10+00:00"", ""kind"": ""order"", ""product_id"": 5}"

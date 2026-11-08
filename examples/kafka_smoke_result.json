@@ -1,0 +1,35 @@
+{
+  "status": "passed",
+  "bootstrap": "127.0.0.1:19092",
+  "checks": [
+    "explicit_topic_creation_is_repeatable",
+    "producer_delivery_acknowledgements",
+    "sqlite_effect_and_manual_offset_commit",
+    "same_group_restart_resumes_after_last_commit",
+    "post_sqlite_pre_kafka_crash_recovers_without_double_counting",
+    "independent_group_with_own_database",
+    "broker_commit_ahead_of_database_is_rejected",
+    "count_mode_is_bounded_and_fails_when_records_are_missing",
+    "negative_review_alert_is_durable_and_deduplicated"
+  ],
+  "order_totals": {
+    "orders": 20,
+    "revenue_cents": 367630,
+    "reviews": 0,
+    "negative_reviews": 0,
+    "late_orders": 0,
+    "late_order_cents": 0,
+    "late_reviews": 0
+  },
+  "review_totals": {
+    "orders": 0,
+    "revenue_cents": 0,
+    "reviews": 9,
+    "negative_reviews": 9,
+    "late_orders": 0,
+    "late_order_cents": 0,
+    "late_reviews": 0
+  },
+  "review_alerts": 1,
+  "cleanup": "removed this run's dedicated resources"
+}

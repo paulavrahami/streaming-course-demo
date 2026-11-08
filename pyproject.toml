@@ -1,0 +1,31 @@
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "streaming-course-demo"
+version = "1.0.0"
+description = "A reproducible streaming data lab with Hebrew teaching notebooks"
+readme = "README.md"
+requires-python = ">=3.13,<3.14"
+dependencies = []
+
+[project.optional-dependencies]
+kafka = ["confluent-kafka==2.16.1"]
+
+[project.scripts]
+streaming-lab = "streaming_lab.__main__:main"
+streaming-kafka = "streaming_lab.kafka_demo:main"
+
+[dependency-groups]
+dev = [
+  "ipykernel>=6.30,<8",
+  "nbclient>=0.10,<1",
+  "nbformat>=5.10,<6",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/streaming_lab"]
+
+[tool.uv]
+default-groups = ["dev"]

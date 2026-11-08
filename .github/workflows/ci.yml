@@ -1,0 +1,51 @@
+name: Streaming lab
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  notebook:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    env:
+      PYTHONUTF8: "1"
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
+        with:
+          version: "0.13.5"
+          enable-cache: true
+      - run: uv python install 3.13.12
+      - run: uv sync --locked --extra kafka
+      - run: uv run --extra kafka python -m unittest discover -s tests -v
+      - run: uv run python scripts/run_notebook.py
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: notebook-${{ matrix.os }}
+          path: artifacts/
+          if-no-files-found: ignore
+
+  broker:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PYTHONUTF8: "1"
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
+        with:
+          version: "0.13.5"
+          enable-cache: true
+      - run: uv python install 3.13.12
+      - run: uv sync --locked --extra kafka
+      - run: uv run --extra kafka python scripts/kafka_smoke.py
