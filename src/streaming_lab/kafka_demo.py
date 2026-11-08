@@ -8,6 +8,7 @@ No confluent_kafka import is needed for the ordinary local lab or unit tests.
 from __future__ import annotations
 
 import argparse
+from contextlib import closing
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
 import json
@@ -231,7 +232,9 @@ def bind_database(db: Path, *, bootstrap: str, cluster_id: str | None,
     """A DB belongs to one broker/topic/partition/group, not an arbitrary run."""
     binding = (",".join(sorted(part.strip() for part in bootstrap.split(","))),
                cluster_id or "", topic, 0, group)
-    with sqlite3.connect(db, timeout=5) as connection:
+    # The connection context commits or rolls back; closing releases the file
+    # on every exit, including a rejected source binding on Windows.
+    with closing(sqlite3.connect(db, timeout=5)) as connection, connection:
         connection.execute("""CREATE TABLE IF NOT EXISTS kafka_source_binding (
             singleton INTEGER PRIMARY KEY CHECK(singleton=1), bootstrap TEXT NOT NULL,
             cluster_id TEXT NOT NULL, topic TEXT NOT NULL, partition_id INTEGER NOT NULL,

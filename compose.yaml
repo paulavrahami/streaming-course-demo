@@ -9,7 +9,7 @@ services:
       - --kafka-addr
       - internal://0.0.0.0:9092,external://0.0.0.0:19092
       - --advertise-kafka-addr
-      - internal://redpanda:9092,external://localhost:${KAFKA_HOST_PORT:-19092}
+      - internal://redpanda:9092,external://127.0.0.1:${KAFKA_HOST_PORT:-19092}
       - --rpc-addr
       - redpanda:33145
       - --advertise-rpc-addr

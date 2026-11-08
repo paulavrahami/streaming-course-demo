@@ -217,7 +217,9 @@ def main():
                 console_port = available_port()
             environment["KAFKA_HOST_PORT"] = str(kafka_port)
             environment["CONSOLE_HOST_PORT"] = str(console_port)
-            bootstrap = f"localhost:{kafka_port}"
+            # Compose publishes this listener on IPv4 loopback only. Its
+            # advertised external address must use the same numeric host.
+            bootstrap = f"127.0.0.1:{kafka_port}"
             started_compose = True
             run_command([*compose, "up", "--detach", "--wait", "--wait-timeout", "120"],
                         env=environment, timeout=180)
